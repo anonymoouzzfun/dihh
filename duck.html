@@ -1,112 +1,42 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>quack</title>
-<style>
-  body{
-    background-color: #FFDE00; 
-    background-image: radial-gradient(#ffaa00 3px, transparent 3px);
-    background-size: 40px 40px; 
-    margin: 0;
-    height: 100vh;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    font-family: 'Courier New', monospace;
-    overflow: hidden; cursor: crosshair;
-  }
-  
-  h1 {
-    font-size: 3.5rem;
-    color: #000;
-    text-shadow: 3px 3px 0px #fff;
-    border: 5px solid #000;
-    padding: 10px 25px;
-    background: #ff5500;
-    transform: rotate(-4deg);
-    box-shadow: 10px 10px 0px #000;
-    user-select: none;
-    z-index: 10;
-  }
-
-  .btn {
-    background: none; border: none;
-    cursor: pointer;
-    transition: transform 0.05s;
-    animation: bob 2s infinite ease-in-out;
-    filter: drop-shadow(15px 15px 0px rgba(0,0,0,0.4));
-    margin-top: 20px; z-index: 5;
-  }
-  
-  .btn img {
-    width: 250px;
-    pointer-events: none;
-  }
-
-  .btn:active {
-    transform: scale(0.8) rotate(-20deg);
-    animation: none;
-  }
-
-  @keyframes bob {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-30px) rotate(8deg); }
-  }
-        
-  .floating-txt {
-    position: absolute;
-    font-size: 2.5rem; font-weight: 900;
-    color: #fff;
-    text-shadow: 3px 3px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 20;
-  }
-</style>
-</head>
-<body>
-
-  <h1>CLICK DA DUCK</h1>
-  <button class="btn" onclick="doTheQuack(event)">
-    <img src="https://static.wikia.nocookie.net/roblox/images/a/aa/Rubber_Duckie.png/revision/latest?cb=20170211082650" alt="duck">
-  </button>
-
-  <script>
-    var audios = [
-      "https://upload.wikimedia.org/wikipedia/commons/d/d7/Duck_quacking.ogg",
-      "https://upload.wikimedia.org/wikipedia/commons/a/a8/Mallard_Duck_Quacking.ogg"
-    ];
-
-    function doTheQuack(e) {
-      var sndUrl = audios[Math.floor(Math.random() * audios.length)];
-      var a = new Audio(sndUrl);
-      
-      a.play().catch(function(err) {
-        let msg = new SpeechSynthesisUtterance("quack");
-        msg.pitch = 1.5;
-        window.speechSynthesis.speak(msg);
-      });
-
-      var el = document.createElement('div');
-      var words = ['QUACK!', 'HONK!', 'WAK!', 'QUONK!'];
-      el.innerText = words[Math.floor(Math.random() * words.length)];
-      el.className = 'floating-txt';
-      
-      el.style.left = (e.clientX - 60 + Math.random()*120) + 'px';
-      el.style.top = (e.clientY - 120 + Math.random()*80) + 'px';
-      document.body.appendChild(el);
-
-      setTimeout(() => {
-        el.style.opacity = '1';
-        el.style.transform = `translateY(-80px) scale(1.5) rotate(${Math.random() * 60 - 30}deg)`;
-      }, 10);
-
-      setTimeout(function(){
-        el.style.opacity = '0';
-        setTimeout(() => el.remove(), 400);
-      }, 300);
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      quack
+    </title>
+    <style>
+      body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #111;
     }
-  </script>
-</body>
-      </html>
+    img {
+      width: 300px;
+      height: auto;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    img:active {
+      transform: scale(0.95);
+    }
+    </style>
+  </head>
+  <body>
+    <img src="duck.png" id="playImage" alt="duckowoeirjfieiejtfoeoej" />
+    <audio id="audioPlayer" src="duck.mp3">
+    </audio>
+    <script>
+      const image = document.getElementById(&#34;playImage&#34;);
+    const audio = document.getElementById(&#34;audioPlayer&#34;);
+
+    image.addEventListener(&#34;click&#34;, () =&gt; {
+      audio.currentTime = 0;
+      audio.play();
+    });
+    </script>
+  </body>
+</html>
+    
